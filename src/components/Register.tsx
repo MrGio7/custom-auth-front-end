@@ -1,14 +1,14 @@
 import { Box, Button, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRegisterMutation } from "../generated/graphql";
+import { useRegisterMutation, useUsersQuery } from "../generated/graphql";
 
 interface Props {}
 
 export const Register: React.FC<Props> = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [register] = useRegisterMutation();
+  const [register] = useRegisterMutation({refetchQueries: [useUsersQuery]});
   const navigate = useNavigate();
 
   return (

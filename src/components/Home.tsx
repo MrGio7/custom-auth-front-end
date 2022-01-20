@@ -17,15 +17,13 @@ export const Home: React.FC<Props> = () => {
     <>
       <header>
         <Box component="nav">
-          <ButtonGroup size="large" fullWidth={true}>
-            <Button onClick={() => navigate("/")}>Home</Button>
-            <Button onClick={() => navigate("/register")}>Register</Button>
-            <Button onClick={() => navigate("/login")}>Login</Button>
-            <Button onClick={() => navigate("/bye")}>Bye</Button>
-            {!loading && data && data.loggedInUser ? (
+          {data && data.loggedInUser ? (
+            <ButtonGroup size="large" fullWidth={true}>
+              <Button onClick={() => navigate("/")}>Home</Button>
+              <Button onClick={() => navigate("/bye")}>Bye</Button>
               <Button
-                sx={{ color: "black" }}
                 onClick={async () => {
+                  navigate("/");
                   await logout();
                   localStorage.removeItem("accessToken");
                   await client.resetStore();
@@ -33,8 +31,14 @@ export const Home: React.FC<Props> = () => {
               >
                 logout
               </Button>
-            ) : null}
-          </ButtonGroup>
+            </ButtonGroup>
+          ) : (
+            <ButtonGroup size="large" fullWidth={true}>
+              <Button onClick={() => navigate("/")}>Home</Button>
+              <Button onClick={() => navigate("/register")}>Register</Button>
+              <Button onClick={() => navigate("/login")}>Login</Button>
+            </ButtonGroup>
+          )}
         </Box>
         {data && data.loggedInUser ? (
           <div>you are logged in as: {data.loggedInUser.email}</div>
