@@ -23,7 +23,14 @@ export const Login: React.FC<Props> = () => {
 
         console.log(response);
 
-        navigate("/")
+        if (response && response.data) {
+          localStorage.setItem(
+            "accessToken",
+            response.data.login.accessToken
+          );
+        }
+
+        navigate("/");
       }}
     >
       <input

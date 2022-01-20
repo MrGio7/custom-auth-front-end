@@ -11,6 +11,7 @@ export const Home: React.FC<Props> = () => {
           <Link to="/">Home</Link>
           <Link to="/register">Register</Link>
           <Link to="/login">Login</Link>
+          <Link to="/bye">Bye</Link>
         </nav>
       </header>
       <Outlet />
