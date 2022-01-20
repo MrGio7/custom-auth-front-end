@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLoginMutation } from "../generated/graphql";
+import {
+  LoggedInUserDocument,
+  LoggedInUserQuery,
+  useLoginMutation,
+} from "../generated/graphql";
 
 interface Props {}
 
@@ -19,15 +23,22 @@ export const Login: React.FC<Props> = () => {
             email,
             password,
           },
+
+          update: (store, { data }) => {
+            if (!data) return null;
+            store.writeQuery<LoggedInUserQuery>({
+              query: LoggedInUserDocument,
+              data: {
+                loggedInUser: data.login.user,
+              },
+            });
+          },
         });
 
         console.log(response);
 
         if (response && response.data) {
-          localStorage.setItem(
-            "accessToken",
-            response.data.login.accessToken
-          );
+          localStorage.setItem("accessToken", response.data.login.accessToken);
         }
 
         navigate("/");

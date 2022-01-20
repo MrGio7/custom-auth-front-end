@@ -1,11 +1,22 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
-import { useLogoutMutation } from "../generated/graphql";
+import { useLoggedInUserQuery, useLogoutMutation } from "../generated/graphql";
 
 interface Props {}
 
 export const Home: React.FC<Props> = () => {
+  const { data, loading } = useLoggedInUserQuery();
   const [logout, { client }] = useLogoutMutation();
+
+  let body: any = null;
+
+  if (loading) {
+    body = null;
+  } else if (data && data.loggedInUser) {
+    body = <div>you are logged in as: {data.loggedInUser.email}</div>;
+  } else {
+    body = <div>please log in</div>;
+  }
 
   return (
     <>
@@ -15,16 +26,19 @@ export const Home: React.FC<Props> = () => {
           <Link to="/register">Register</Link>
           <Link to="/login">Login</Link>
           <Link to="/bye">Bye</Link>
-          <button
-            onClick={async () => {
-              await logout();
-              localStorage.removeItem("accessToken");
-              await client.resetStore();
-            }}
-          >
-            logout
-          </button>
+          {!loading && data && data.loggedInUser ? (
+            <button
+              onClick={async () => {
+                await logout();
+                localStorage.removeItem("accessToken");
+                await client.resetStore();
+              }}
+            >
+              logout
+            </button>
+          ) : null}
         </nav>
+        {body}
       </header>
       <Outlet />
     </>
