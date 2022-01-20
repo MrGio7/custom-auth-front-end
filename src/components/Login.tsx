@@ -5,6 +5,15 @@ import {
   LoggedInUserQuery,
   useLoginMutation,
 } from "../generated/graphql";
+import {
+  FormControl,
+  FormHelperText,
+  Input,
+  InputLabel,
+  TextField,
+  Button,
+} from "@mui/material";
+import { Box } from "@mui/system";
 
 interface Props {}
 
@@ -15,8 +24,16 @@ export const Login: React.FC<Props> = () => {
   const navigate = useNavigate();
 
   return (
-    <form
-      onSubmit={async (event) => {
+    <Box
+      sx={{
+        width: "30%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        m: "30px auto",
+      }}
+      component="form"
+      onSubmit={async (event: { preventDefault: () => void }) => {
         event.preventDefault();
         const response = await login({
           variables: {
@@ -44,23 +61,28 @@ export const Login: React.FC<Props> = () => {
         navigate("/");
       }}
     >
-      <input
-        value={email}
+      <TextField
+        label="Email"
+        variant="outlined"
         type="email"
-        placeholder="Email"
+        value={email}
         onChange={(event) => {
           setEmail(event.target.value);
         }}
       />
-      <input
-        value={password}
+      <TextField
+        sx={{
+          mt: "20px",
+        }}
+        label="Password"
+        variant="outlined"
         type="password"
-        placeholder="Password"
+        value={password}
         onChange={(event) => {
           setPassword(event.target.value);
         }}
       />
-      <button type="submit">Login</button>
-    </form>
+      <Button type="submit">Login</Button>
+    </Box>
   );
 };
