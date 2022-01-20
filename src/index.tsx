@@ -13,6 +13,8 @@ import jwtDecode, { JwtPayload } from "jwt-decode";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 
+import "./index.css";
+
 const httpLink = createHttpLink({
   uri: "http://localhost:5000/graphql",
 });

@@ -1,44 +1,46 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useLoggedInUserQuery, useLogoutMutation } from "../generated/graphql";
+import { Box, Button, ButtonGroup } from "@mui/material";
 
 interface Props {}
 
 export const Home: React.FC<Props> = () => {
-  const { data, loading } = useLoggedInUserQuery();
+  const { data, loading, error } = useLoggedInUserQuery();
   const [logout, { client }] = useLogoutMutation();
+  const navigate = useNavigate();
 
-  let body: any = null;
-
-  if (loading) {
-    body = null;
-  } else if (data && data.loggedInUser) {
-    body = <div>you are logged in as: {data.loggedInUser.email}</div>;
-  } else {
-    body = <div>please log in</div>;
-  }
+  if (loading) return <h1>Loading///</h1>;
+  if (error) return <h1>ERROR</h1>;
 
   return (
     <>
       <header>
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/register">Register</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/bye">Bye</Link>
-          {!loading && data && data.loggedInUser ? (
-            <button
-              onClick={async () => {
-                await logout();
-                localStorage.removeItem("accessToken");
-                await client.resetStore();
-              }}
-            >
-              logout
-            </button>
-          ) : null}
-        </nav>
-        {body}
+        <Box component="nav">
+          <ButtonGroup size="large" fullWidth={true}>
+            <Button onClick={() => navigate("/")}>Home</Button>
+            <Button onClick={() => navigate("/register")}>Register</Button>
+            <Button onClick={() => navigate("/login")}>Login</Button>
+            <Button onClick={() => navigate("/bye")}>Bye</Button>
+            {!loading && data && data.loggedInUser ? (
+              <Button
+                sx={{ color: "black" }}
+                onClick={async () => {
+                  await logout();
+                  localStorage.removeItem("accessToken");
+                  await client.resetStore();
+                }}
+              >
+                logout
+              </Button>
+            ) : null}
+          </ButtonGroup>
+        </Box>
+        {data && data.loggedInUser ? (
+          <div>you are logged in as: {data.loggedInUser.email}</div>
+        ) : (
+          <div>please log in</div>
+        )}
       </header>
       <Outlet />
     </>
