@@ -8,7 +8,7 @@ interface Props {}
 export const Register: React.FC<Props> = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [register] = useRegisterMutation({refetchQueries: [useUsersQuery]});
+  const [register] = useRegisterMutation();
   const navigate = useNavigate();
 
   return (

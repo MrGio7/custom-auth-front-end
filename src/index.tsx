@@ -6,14 +6,25 @@ import {
   ApolloProvider,
   createHttpLink,
   InMemoryCache,
+  split,
+  HttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { getMainDefinition } from "@apollo/client/utilities";
+import { WebSocketLink } from "@apollo/client/link/ws";
 import { TokenRefreshLink } from "apollo-link-token-refresh";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 
 import "./index.css";
+
+const wsLink = new WebSocketLink({
+  uri: "ws://localhost:5000/graphql",
+  options: {
+    reconnect: true,
+  },
+});
 
 const httpLink = createHttpLink({
   uri: "http://localhost:5000/graphql",
@@ -30,6 +41,18 @@ const authLink = setContext((_, { headers }) => {
     credentials: "include",
   };
 });
+
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === "OperationDefinition" &&
+      definition.operation === "subscription"
+    );
+  },
+  wsLink,
+  httpLink
+);
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -69,7 +92,8 @@ const client = new ApolloClient({
         // your custom action here
       },
     }),
-    authLink.concat(httpLink),
+    authLink,
+    splitLink,
   ]),
 });
 

@@ -1,0 +1,3 @@
+subscription newUser {
+  newUser
+}

@@ -1,6 +1,10 @@
 import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { useLoggedInUserQuery, useLogoutMutation } from "../generated/graphql";
+import {
+  useLoggedInUserQuery,
+  useLogoutMutation,
+  useNewUserSubscription,
+} from "../generated/graphql";
 import { Box, Button, ButtonGroup } from "@mui/material";
 
 interface Props {}
@@ -8,11 +12,20 @@ interface Props {}
 export const Home: React.FC<Props> = () => {
   const { data, loading, error } = useLoggedInUserQuery();
   const [logout, { client }] = useLogoutMutation();
+  const { loading: loadSub, data: dataSub, error: errorSub } = useNewUserSubscription();
   const navigate = useNavigate();
 
   if (loading) return <h1>Loading///</h1>;
   if (error) return <h1>ERROR</h1>;
 
+  console.log({
+    subscribe: {
+      loading: loadSub,
+      data: dataSub,
+      error: errorSub
+    }
+  });
+  
   return (
     <>
       <header>
