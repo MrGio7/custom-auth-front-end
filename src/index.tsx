@@ -75,10 +75,13 @@ const client = new ApolloClient({
         }
       },
       fetchAccessToken: () => {
-        return fetch("https://custom-auth-back-end.herokuapp.com/refresh_token", {
-          method: "POST",
-          credentials: "include",
-        });
+        return fetch(
+          "https://custom-auth-back-end.herokuapp.com/refresh_token",
+          {
+            method: "POST",
+            credentials: "include",
+          }
+        );
       },
       handleFetch: (accessToken) => {
         localStorage.setItem("accessToken", accessToken);
@@ -97,10 +100,10 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <BrowserRouter basename="/custom-auth-front-end">
+  <BrowserRouter basename="/custom-auth-front-end">
+    <ApolloProvider client={client}>
       <App />
-    </BrowserRouter>
-  </ApolloProvider>,
+    </ApolloProvider>
+  </BrowserRouter>,
   document.getElementById("root")
 );
