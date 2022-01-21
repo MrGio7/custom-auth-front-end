@@ -65,6 +65,11 @@ table {
 	margin:30px auto;
 }
 
+.counter p{
+	font-size: 2rem;
+	margin-top: 2rem;
+}
+
 @media (max-width: 1000px) {
 	.MuiBox-root{
 		width: 90%;

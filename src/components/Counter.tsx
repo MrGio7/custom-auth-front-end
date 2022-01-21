@@ -10,14 +10,12 @@ export const Counter: React.FC<Props> = () => {
   if (error) return <h1>Coutner Error</h1>;
 
   return (
-    <div>
+    <div className="counter">
       {data && data.loggedInUser && data.loggedInUser.logInCount === 1 ? (
         <p>Welcome {data.loggedInUser.email}</p>
       ) : (
         <p>
-          Welcome It's your
-          {data && data.loggedInUser ? data.loggedInUser.logInCount : null}th
-          login
+          Welcome It's your {data && data.loggedInUser ? data.loggedInUser.logInCount : null}th login
         </p>
       )}
     </div>
