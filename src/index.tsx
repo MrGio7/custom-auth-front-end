@@ -98,7 +98,7 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <BrowserRouter>
+    <BrowserRouter basename="/custom-auth-front-end">
       <App />
     </BrowserRouter>
   </ApolloProvider>,
