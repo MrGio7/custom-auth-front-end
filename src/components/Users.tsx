@@ -1,3 +1,4 @@
+import { Box, List, ListItem, Typography } from "@mui/material";
 import React from "react";
 import { useUsersQuery } from "../generated/graphql";
 
@@ -12,14 +13,20 @@ export const Users: React.FC<Props> = () => {
   if (error) return <h1>ERROR///</h1>;
 
   return (
-    <ul>
-      {data?.users.map((user) => {
-        return (
-          <li key={user.id}>
-            {user.email}, {user.id}
-          </li>
-        );
-      })}
-    </ul>
+    <Box sx={{width: 'max-content'}}>
+      <Typography sx={{ mt: "20px" }} variant="h4">
+        User List
+      </Typography>
+      <List>
+        {data &&
+          data.users.map((user) => {
+            return (
+              <ListItem key={user.id} sx={{ m: 0 }}>
+                {user.email}
+              </ListItem>
+            );
+          })}
+      </List>
+    </Box>
   );
 };

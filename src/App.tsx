@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Bye } from "./components/Bye";
+import { Counter } from "./components/Counter";
 import { Home } from "./components/Home";
 import { Login } from "./components/Login";
 import { Register } from "./components/Register";
@@ -27,7 +27,7 @@ export default function App() {
         <Route index element={<Users />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route path="bye" element={<Bye />} />
+        <Route path="counter" element={<Counter />} />
       </Route>
     </Routes>
   );

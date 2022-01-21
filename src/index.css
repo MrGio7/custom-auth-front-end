@@ -48,3 +48,25 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+#root{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.MuiBox-root{
+	width: 30%;
+	min-width: max-content;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin:30px auto;
+}
+
+@media (max-width: 1000px) {
+	.MuiBox-root{
+		width: 90%;
+	}
+}

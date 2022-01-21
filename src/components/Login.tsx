@@ -6,6 +6,7 @@ import {
   useLoginMutation,
 } from "../generated/graphql";
 import { Box, TextField, Button } from "@mui/material";
+import { maxWidth } from "@mui/system";
 
 interface Props {}
 
@@ -17,13 +18,6 @@ export const Login: React.FC<Props> = () => {
 
   return (
     <Box
-      sx={{
-        width: "30%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        m: "30px auto",
-      }}
       component="form"
       onSubmit={async (event: { preventDefault: () => void }) => {
         event.preventDefault();
@@ -50,7 +44,7 @@ export const Login: React.FC<Props> = () => {
           localStorage.setItem("accessToken", response.data.login.accessToken);
         }
 
-        navigate("/");
+        navigate("/counter");
       }}
     >
       <TextField
