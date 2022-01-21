@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/custom-auth-front-end/static/css/main.9a0d0fd7.css",
+    "main.js": "/custom-auth-front-end/static/js/main.739b175a.js",
+    "index.html": "/custom-auth-front-end/index.html",
+    "main.9a0d0fd7.css.map": "/custom-auth-front-end/static/css/main.9a0d0fd7.css.map",
+    "main.739b175a.js.map": "/custom-auth-front-end/static/js/main.739b175a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9a0d0fd7.css",
+    "static/js/main.739b175a.js"
+  ]
+}
