@@ -10,7 +10,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/refresh_token", {
+    fetch("https://custom-auth-back-end.herokuapp.com/refresh_token", {
       method: "POST",
       credentials: "include",
     }).then(async (response) => {
