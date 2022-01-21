@@ -19,7 +19,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 
 const wsLink = new WebSocketLink({
-  uri: "ws://custom-auth-back-end.herokuapp.com/graphql",
+  uri: "wss://custom-auth-back-end.herokuapp.com/graphql",
   options: {
     reconnect: true,
   },
