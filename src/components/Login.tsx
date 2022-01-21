@@ -6,21 +6,37 @@ import {
   useLoginMutation,
 } from "../generated/graphql";
 import { Box, TextField, Button } from "@mui/material";
-import { maxWidth } from "@mui/system";
+import { validEmail, validPassword } from "../Regex";
 
 interface Props {}
 
 export const Login: React.FC<Props> = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [login] = useLoginMutation();
+  const [login, { error, reset }] = useLoginMutation();
   const navigate = useNavigate();
+
+  if (error) {
+    alert(error.message);
+    reset();
+  }
 
   return (
     <Box
+      id="login"
       component="form"
       onSubmit={async (event: { preventDefault: () => void }) => {
         event.preventDefault();
+
+        if (!validEmail.test(email)) {
+          alert("Please enter valid email");
+          return;
+        }
+        if (!validPassword.test(password)) {
+          alert("Please enter valid password");
+          return;
+        }
+
         const response = await login({
           variables: {
             email,
@@ -38,16 +54,17 @@ export const Login: React.FC<Props> = () => {
           },
         });
 
-        console.log(response);
-
         if (response && response.data) {
           localStorage.setItem("accessToken", response.data.login.accessToken);
+          alert(`Welcome ${email}`);
+          navigate("/counter");
         }
-
-        navigate("/counter");
       }}
     >
       <TextField
+        sx={{
+          width: "100%",
+        }}
         label="Email"
         variant="outlined"
         type="email"
@@ -58,6 +75,7 @@ export const Login: React.FC<Props> = () => {
       />
       <TextField
         sx={{
+          width: "100%",
           mt: "20px",
         }}
         label="Password"

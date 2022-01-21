@@ -1,41 +1,53 @@
 import { Box, Button, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRegisterMutation, useUsersQuery } from "../generated/graphql";
+import { useRegisterMutation } from "../generated/graphql";
+import { validEmail, validPassword } from "../Regex";
 
 interface Props {}
 
 export const Register: React.FC<Props> = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [register] = useRegisterMutation();
+  const [register, { error, reset }] = useRegisterMutation();
   const navigate = useNavigate();
+
+  if (error) {
+    alert(error.message);
+    reset();
+  }
 
   return (
     <Box
-      sx={{
-        width: "30%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        m: "30px auto",
-      }}
+      id="register"
       component="form"
       onSubmit={async (event: { preventDefault: () => void }) => {
         event.preventDefault();
-        const response = await register({
+
+        if (!validEmail.test(email)) {
+          alert("Please enter valid email");
+          return;
+        }
+        if (!validPassword.test(password)) {
+          alert("Please enter valid password");
+          return;
+        }
+
+        await register({
           variables: {
             email,
             password,
           },
         });
 
-        console.log(response);
-
-        navigate("/");
+        alert("Registration was successful, please login");
+        navigate("/login");
       }}
     >
       <TextField
+        sx={{
+          width: "100%",
+        }}
         label="Email"
         variant="outlined"
         type="email"
@@ -46,9 +58,11 @@ export const Register: React.FC<Props> = () => {
       />
       <TextField
         sx={{
+          width: "100%",
           mt: "20px",
         }}
         label="Password"
+        helperText="Passwords must be at least 6 characters long and must contain at least one number."
         variant="outlined"
         type="password"
         value={password}
