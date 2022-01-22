@@ -2,19 +2,19 @@
 
 Custom Auth is a feature that gives you full control over the authentication and authorization of your users. You can integrate Authentication with a custom authentication system by modifying your authentication server to produce custom signed tokens when a user successfully signs in.
 
+Deployed: https://custom-auth-react.netlify.app/
 Server: https://github.com/MrGio7/Custom-Auth-Back-End
 
 Tools and technologies used in software development:
-
-
-## Available Scripts
-
-In the project directory, you can run:
 - React
 - React Router
 - TypeScript
 - GraphQL
 - Apollo
+
+## Available Scripts
+
+In the project directory, you can run:
 
 ### `npm start`
 **Note: Please uncomment local settings and comment global settings in .env file before you run this script!**
