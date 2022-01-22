@@ -1,23 +1,29 @@
-# Getting Started with Create React App
+# Getting Started with Custom Auth App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Custom Auth is a feature that gives you full control over the authentication and authorization of your users. You can integrate Authentication with a custom authentication system by modifying your authentication server to produce custom signed tokens when a user successfully signs in.
+
+Server: https://github.com/MrGio7/Custom-Auth-Back-End
+
+Tools and technologies used in software development:
+
 
 ## Available Scripts
 
 In the project directory, you can run:
+- React
+- React Router
+- TypeScript
+- GraphQL
+- Apollo
 
 ### `npm start`
+**Note: Please uncomment local settings and comment global settings in .env file before you run this script!**
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 
@@ -39,8 +45,6 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+### `npm run gen`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+GraphQL Code Generator is a tool that generates code out of your GraphQL schema. Whether you are developing a frontend or backend, you can utilize GraphQL Code Generator to generate output from your GraphQL Schema and GraphQL Documents (query/mutation/subscription/fragment).
