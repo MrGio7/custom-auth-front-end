@@ -19,14 +19,14 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 
 const wsLink = new WebSocketLink({
-  uri: "wss://custom-auth-back-end.herokuapp.com/graphql",
+  uri: process.env.REACT_APP_WS_LINK!,
   options: {
     reconnect: true,
   },
 });
 
 const httpLink = createHttpLink({
-  uri: "https://custom-auth-back-end.herokuapp.com/graphql",
+  uri: process.env.REACT_APP_HTTP_LINK!,
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -76,7 +76,7 @@ const client = new ApolloClient({
       },
       fetchAccessToken: () => {
         return fetch(
-          "https://custom-auth-back-end.herokuapp.com/refresh_token",
+          process.env.REACT_APP_REFRESH_TOKEN_LINK!,
           {
             method: "POST",
             credentials: "include",
